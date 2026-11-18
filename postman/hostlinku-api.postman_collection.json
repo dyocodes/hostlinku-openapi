@@ -1,0 +1,116 @@
+{
+  "info": {
+    "name": "Hostlinku AI Gateway API",
+    "_postman_id": "a7f3c8d2-9b1e-4c6a-8e34-001122334455",
+    "description": "Postman collection covering OpenAI Chat Completions, Anthropic Messages, OpenAI Responses, model discovery, and public USD pricing.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.hostlinku.com", "type": "string" },
+    { "key": "apiKey", "value": "sk-your-api-key", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Public Model Catalog & USD Pricing",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/public/models?limit=100",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "public", "models"],
+          "query": [{ "key": "limit", "value": "100" }]
+        }
+      }
+    },
+    {
+      "name": "List Key Models (/v1/models)",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{apiKey}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/v1/models",
+          "host": ["{{baseUrl}}"],
+          "path": ["v1", "models"]
+        }
+      }
+    },
+    {
+      "name": "Chat Completions (/v1/chat/completions)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{apiKey}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"model\": \"gpt-5-5\",\n  \"max_tokens\": 256,\n  \"messages\": [\n    { \"role\": \"user\", \"content\": \"Explain what an API gateway is in two sentences.\" }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/v1/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["v1", "chat", "completions"]
+        }
+      }
+    },
+    {
+      "name": "Anthropic Messages (/v1/messages)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "x-api-key", "value": "{{apiKey}}" },
+          { "key": "anthropic-version", "value": "2023-06-01" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"model\": \"claude-haiku-4-5\",\n  \"max_tokens\": 256,\n  \"messages\": [\n    { \"role\": \"user\", \"content\": \"Explain what an API gateway is in two sentences.\" }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/v1/messages",
+          "host": ["{{baseUrl}}"],
+          "path": ["v1", "messages"]
+        }
+      }
+    },
+    {
+      "name": "Anthropic Count Tokens (/v1/messages/count_tokens)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "x-api-key", "value": "{{apiKey}}" },
+          { "key": "anthropic-version", "value": "2023-06-01" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"model\": \"claude-haiku-4-5\",\n  \"messages\": [\n    { \"role\": \"user\", \"content\": \"Hello!\" }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/v1/messages/count_tokens",
+          "host": ["{{baseUrl}}"],
+          "path": ["v1", "messages", "count_tokens"]
+        }
+      }
+    },
+    {
+      "name": "OpenAI Responses (/v1/responses)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{apiKey}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"model\": \"gpt-5-5\",\n  \"max_output_tokens\": 256,\n  \"store\": false,\n  \"input\": \"What is an API gateway?\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/v1/responses",
+          "host": ["{{baseUrl}}"],
+          "path": ["v1", "responses"]
+        }
+      }
+    }
+  ]
+}
